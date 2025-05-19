@@ -3,6 +3,7 @@ import AuthLayout from '../../components/layouts/AuthLayout'
 import Input from '../../components/inputs/Input';
 
 import { Link, useNavigate } from 'react-router-dom'
+import { validateEmail } from '../../utils/helper';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +22,28 @@ const Login = () => {
       setError("Please enter the password.");
       return;
     }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long.');
+      return;
+    }
   }
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (error && validateEmail(value)) {
+      setError(null);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (error && value.trim().length > 0) {
+      setError(null);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -30,13 +52,13 @@ const Login = () => {
         <p className='text-xs text-slate-700 mt-[5pn] mb-6'>Please enter your details to login</p>
         <form onSubmit={handleLogin}>
           <Input value={email} 
-            onChange={({ target }) => setEmail(target.value)} 
+            onChange={handleEmailChange}
             label='Email Address'
             placeholder='john@example.com'
             type='text'/>
 
           <Input value={password} 
-            onChange={({ target }) => setPassword(target.value)} 
+            onChange={handlePasswordChange}
             label='Password'
             placeholder='Min 8 charcters'
             type='password'/>
