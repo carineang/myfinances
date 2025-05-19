@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import Input from '../../components/inputs/Input';
-
 import { Link, useNavigate } from 'react-router-dom'
 import { validateEmail } from '../../utils/helper';
 
@@ -18,6 +17,7 @@ const Login = () => {
       setError("Please enter a valid email address.");
       return;
     }
+    
     if (!password) {
       setError("Please enter the password.");
       return;
@@ -49,7 +49,7 @@ const Login = () => {
     <AuthLayout>
       <div className='lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center'>
         <h3 className='text-xl font-semibold text-black'>Welcome Back</h3>
-        <p className='text-xs text-slate-700 mt-[5pn] mb-6'>Please enter your details to login</p>
+        <p className='text-xs text-slate-700 mt-[5px] mb-6'>Please enter your details to login</p>
         <form onSubmit={handleLogin}>
           <Input value={email} 
             onChange={handleEmailChange}
@@ -60,7 +60,7 @@ const Login = () => {
           <Input value={password} 
             onChange={handlePasswordChange}
             label='Password'
-            placeholder='Min 8 charcters'
+            placeholder='Min 8 characters'
             type='password'/>
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
